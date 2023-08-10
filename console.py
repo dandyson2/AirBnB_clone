@@ -3,17 +3,17 @@
 """Module for the entry point of the command interpreter (console)"""
 
 
-import cmd
-from models.user import User
-from models.state import State
-from models.city import City
-from models.place import Place
-from models.amenity import Amenity
-from models.review import Review
-from models.base_model import BaseModel
-from models import storage
 import re
+import cmd
 import json
+from models import storage
+from models.user import User
+from models.city import City
+from models.state import State
+from models.place import Place
+from models.review import Review
+from models.amenity import Amenity
+from models.base_model import BaseModel
 
 
 class HBNBCommand(cmd.Cmd):
