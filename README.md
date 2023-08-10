@@ -51,7 +51,7 @@ models/place.py: Place class that inherits from BaseModel
 
 models/review.py: Review class that inherits from BaseModel
 
-#How to use it:
+# How to use it:
 It can work in two different modes:
 
 Interactive and Non-interactive
