@@ -10,6 +10,7 @@ from datetime import datetime
 
 class BaseModel:
     """Represents the BaseModel of the AirBnB project."""
+
     def __init__(self, *args, **kwargs):
         """
         This initializes instance attributes
