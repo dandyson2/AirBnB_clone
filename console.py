@@ -20,17 +20,15 @@ class HBNBCommand(cmd.Cmd):
     """This is the Class for the command interpreter."""
     prompt = "(hbnb) "
 
-    def default(self, line):
+    def default(self, record):
         """Catch commands if nothing else matches then."""
-        # print("DEF:::", line)
-        self._precmd(line)
+        self._precmd(record)
 
-    def _precmd(self, line):
+    def _precmd(self, record):
         """Intercepts commands to test for class.syntax()"""
-        # print("PRECMD:::", line)
-        match = re.search(r"^(\w*)\.(\w+)(?:\(([^)]*)\))$", line)
+        match = re.search(r"^(\w*)\.(\w+)(?:\(([^)]*)\))$", record)
         if not match:
-            return (line)
+            return (record)
         classname = match.group(1)
         method = match.group(2)
         args = match.group(3)
@@ -79,12 +77,12 @@ class HBNBCommand(cmd.Cmd):
                     setattr(storage.all()[key], attribute, value)
                 storage.all()[key].save()
 
-    def do_EOF(self, line):
+    def do_EOF(self, record):
         """To handles End Of File as to exit program."""
         print()
         return (True)
 
-    def do_quit(self, line):
+    def do_quit(self, record):
         """This exits the program."""
         return (True)
 
@@ -92,24 +90,24 @@ class HBNBCommand(cmd.Cmd):
         """This doesn't do anything on ENTER."""
         pass
 
-    def do_create(self, line):
+    def do_create(self, record):
         """Creates new instance of BaseModel, save it and print id."""
-        if line == "" or line is None:
+        if record == "" or record is None:
             print("** class name missing **")
-        elif line not in storage.classes():
+        elif record not in storage.classes():
             print("** class doesn't exist **")
         else:
-            class_name = storage.classes()[line]()
+            class_name = storage.classes()[record]()
             class_name.save()
             print(class_name.id)
 
-    def do_show(self, line):
+    def do_show(self, record):
         """Prints string representation of an instance base on:
         class name & id"""
-        if line == "" or line is None:
+        if record == "" or record is None:
             print("** class name missing **")
         else:
-            words = line.split(' ')
+            words = record.split(" ")
             if words[0] not in storage.classes():
                 print("** class doesn't exist **")
             elif len(words) < 2:
@@ -121,12 +119,12 @@ class HBNBCommand(cmd.Cmd):
                 else:
                     print(storage.all()[key])
 
-    def do_destroy(self, line):
+    def do_destroy(self, record):
         """Deletes an instance based on the class name and id. then save it"""
-        if line == "" or line is None:
+        if record == "" or record is None:
             print("** class name missing **")
         else:
-            words = line.split(' ')
+            words = record.split(' ')
             if words[0] not in storage.classes():
                 print("** class doesn't exist **")
             elif len(words) < 2:
@@ -139,28 +137,28 @@ class HBNBCommand(cmd.Cmd):
                     del storage.all()[key]
                     storage.save()
 
-    def do_all(self, line):
+    def do_all(self, record):
         """
         Prints all string representation of all instances.
         Base on:
         Class name or
         Not on class name.
         """
-        if line != "":
-            words = line.split(' ')
+        if record != "":
+            words = record.split(' ')
             if words[0] not in storage.classes():
                 print("** class doesn't exist **")
             else:
-                nl = [str(obj) for key, obj in storage.all().items()
-                      if type(obj).__name__ == words[0]]
-                print(nl)
+                case = [str(obj) for key, obj in storage.all().items()
+                        if type(obj).__name__ == words[0]]
+                print(case)
         else:
-            new_list = [str(obj) for key, obj in storage.all().items()]
-            print(new_list)
+            new_record = [str(obj) for key, obj in storage.all().items()]
+            print(new_record)
 
-    def do_count(self, line):
+    def do_count(self, record):
         """Counts the instances of a class."""
-        words = line.split(' ')
+        words = record.split(" ")
         if not words[0]:
             print("** class name missing **")
         elif words[0] not in storage.classes():
@@ -171,7 +169,7 @@ class HBNBCommand(cmd.Cmd):
                     words[0] + '.')]
             print(len(matches))
 
-    def do_update(self, line):
+    def do_update(self, record):
         """
         Updates an instance by adding or updating attribute.
         Base on:
@@ -179,12 +177,12 @@ class HBNBCommand(cmd.Cmd):
         id &
         save changes to JSON File.
         """
-        if line == "" or line is None:
+        if record == "" or record is None:
             print("** class name missing **")
-            return
+            return ()
 
         rex = r'^(\S+)(?:\s(\S+)(?:\s(\S+)(?:\s((?:"[^"]*")|(?:(\S)+)))?)?)?'
-        match = re.search(rex, line)
+        match = re.search(rex, record)
         classname = match.group(1)
         uid = match.group(2)
         attribute = match.group(3)
@@ -204,20 +202,20 @@ class HBNBCommand(cmd.Cmd):
             elif not value:
                 print("** value missing **")
             else:
-                cast = None
+                entry = None
                 if not re.search('^".*"$', value):
                     if '.' in value:
-                        cast = float
+                        entry = float
                     else:
-                        cast = int
+                        entry = int
                 else:
                     value = value.replace('"', '')
                 attributes = storage.attributes()[classname]
                 if attribute in attributes:
                     value = attributes[attribute](value)
-                elif cast:
+                elif entry:
                     try:
-                        value = cast(value)
+                        value = entry(value)
                     except ValueError:
                         pass  # fine, stay a string then
                 setattr(storage.all()[key], attribute, value)
