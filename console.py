@@ -107,13 +107,13 @@ class HBNBCommand(cmd.Cmd):
         if record == "" or record is None:
             print("** class name missing **")
         else:
-            words = record.split(" ")
-            if words[0] not in storage.classes():
+            element = record.split(" ")
+            if element[0] not in storage.classes():
                 print("** class doesn't exist **")
             elif len(words) < 2:
                 print("** instance id missing **")
             else:
-                key = "{}.{}".format(words[0], words[1])
+                key = "{}.{}".format(element[0], element[1])
                 if key not in storage.all():
                     print("** no instance found **")
                 else:
@@ -124,13 +124,13 @@ class HBNBCommand(cmd.Cmd):
         if record == "" or record is None:
             print("** class name missing **")
         else:
-            words = record.split(' ')
-            if words[0] not in storage.classes():
+            element = record.split(' ')
+            if element[0] not in storage.classes():
                 print("** class doesn't exist **")
-            elif len(words) < 2:
+            elif len(element) < 2:
                 print("** instance id missing **")
             else:
-                key = "{}.{}".format(words[0], words[1])
+                key = "{}.{}".format(element[0], element[1])
                 if key not in storage.all():
                     print("** no instance found **")
                 else:
@@ -145,12 +145,12 @@ class HBNBCommand(cmd.Cmd):
         Not on class name.
         """
         if record != "":
-            words = record.split(' ')
-            if words[0] not in storage.classes():
+            element = record.split(' ')
+            if element[0] not in storage.classes():
                 print("** class doesn't exist **")
             else:
                 case = [str(obj) for key, obj in storage.all().items()
-                        if type(obj).__name__ == words[0]]
+                        if type(obj).__name__ == element[0]]
                 print(case)
         else:
             new_record = [str(obj) for key, obj in storage.all().items()]
@@ -158,15 +158,15 @@ class HBNBCommand(cmd.Cmd):
 
     def do_count(self, record):
         """Counts the instances of a class."""
-        words = record.split(" ")
-        if not words[0]:
+        element = record.split(" ")
+        if not element[0]:
             print("** class name missing **")
-        elif words[0] not in storage.classes():
+        elif element[0] not in storage.classes():
             print("** class doesn't exist **")
         else:
             matches = [
                 k for k in storage.all() if k.startswith(
-                    words[0] + '.')]
+                    element[0] + '.')]
             print(len(matches))
 
     def do_update(self, record):
