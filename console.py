@@ -217,7 +217,7 @@ class HBNBCommand(cmd.Cmd):
                     try:
                         value = entry(value)
                     except ValueError:
-                        pass  # fine, stay a string then
+                        pass
                 setattr(storage.all()[key], attribute, value)
                 storage.all()[key].save()
 
