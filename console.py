@@ -61,21 +61,21 @@ class HBNBCommand(cmd.Cmd):
         d = json.loads(s)
         if not classname:
             print("** class name missing **")
-        elif classname not in storage.classes():
+        elif classname not in FileStorage.classes():
             print("** class doesn't exist **")
         elif uid is None:
             print("** instance id missing **")
         else:
             key = "{}.{}".format(classname, uid)
-            if key not in storage.all():
+            if key not in FileStorage.all():
                 print("** no instance found **")
             else:
-                attributes = storage.attributes()[classname]
+                attributes = FileStorage.attributes()[classname]
                 for attribute, value in d.items():
                     if attribute in attributes:
                         value = attributes[attribute](value)
-                    setattr(storage.all()[key], attribute, value)
-                storage.all()[key].save()
+                    setattr(FileStorage.all()[key], attribute, value)
+                FileStorage.all()[key].save()
 
     def do_EOF(self, record):
         """To handles End Of File as to exit program."""
@@ -94,10 +94,10 @@ class HBNBCommand(cmd.Cmd):
         """Creates new instance of BaseModel, save it and print id."""
         if record == "" or record is None:
             print("** class name missing **")
-        elif record not in storage.classes():
+        elif record not in FileStorage.classes():
             print("** class doesn't exist **")
         else:
-            class_name = storage.classes()[record]()
+            class_name = FileStorage.classes()[record]()
             class_name.save()
             print(class_name.id)
 
@@ -108,16 +108,16 @@ class HBNBCommand(cmd.Cmd):
             print("** class name missing **")
         else:
             element = record.split(" ")
-            if element[0] not in storage.classes():
+            if element[0] not in FileStorage.classes():
                 print("** class doesn't exist **")
             elif len(element) < 2:
                 print("** instance id missing **")
             else:
                 key = "{}.{}".format(element[0], element[1])
-                if key not in storage.all():
+                if key not in FileStorage.all():
                     print("** no instance found **")
                 else:
-                    print(storage.all()[key])
+                    print(FileStorage.all()[key])
 
     def do_destroy(self, record):
         """Deletes an instance based on the class name and id. then save it"""
@@ -125,17 +125,17 @@ class HBNBCommand(cmd.Cmd):
             print("** class name missing **")
         else:
             element = record.split(' ')
-            if element[0] not in storage.classes():
+            if element[0] not in FileStorage.classes():
                 print("** class doesn't exist **")
             elif len(element) < 2:
                 print("** instance id missing **")
             else:
                 key = "{}.{}".format(element[0], element[1])
-                if key not in storage.all():
+                if key not in FileStorage.all():
                     print("** no instance found **")
                 else:
-                    del storage.all()[key]
-                    storage.save()
+                    del FileStorage.all()[key]
+                    FileStorage.save()
 
     def do_all(self, record):
         """
@@ -146,14 +146,14 @@ class HBNBCommand(cmd.Cmd):
         """
         if record != "":
             element = record.split(' ')
-            if element[0] not in storage.classes():
+            if element[0] not in FileStorage.classes():
                 print("** class doesn't exist **")
             else:
-                case = [str(obj) for key, obj in storage.all().items()
+                case = [str(obj) for key, obj in FileStorage.all().items()
                         if type(obj).__name__ == element[0]]
                 print(case)
         else:
-            new_record = [str(obj) for key, obj in storage.all().items()]
+            new_record = [str(obj) for key, obj in FileStorage.all().items()]
             print(new_record)
 
     def do_count(self, record):
@@ -161,11 +161,11 @@ class HBNBCommand(cmd.Cmd):
         element = record.split(" ")
         if not element[0]:
             print("** class name missing **")
-        elif element[0] not in storage.classes():
+        elif element[0] not in FileStorage.classes():
             print("** class doesn't exist **")
         else:
             matches = [
-                k for k in storage.all() if k.startswith(
+                k for k in FileStorage.all() if k.startswith(
                     element[0] + '.')]
             print(len(matches))
 
@@ -189,13 +189,13 @@ class HBNBCommand(cmd.Cmd):
         value = match.group(4)
         if not match:
             print("** class name missing **")
-        elif classname not in storage.classes():
+        elif classname not in FileStorage.classes():
             print("** class doesn't exist **")
         elif uid is None:
             print("** instance id missing **")
         else:
             key = "{}.{}".format(classname, uid)
-            if key not in storage.all():
+            if key not in FileStorage.all():
                 print("** no instance found **")
             elif not attribute:
                 print("** attribute name missing **")
@@ -210,7 +210,7 @@ class HBNBCommand(cmd.Cmd):
                         entry = int
                 else:
                     value = value.replace('"', '')
-                attributes = storage.attributes()[classname]
+                attributes = FileStorage.attributes()[classname]
                 if attribute in attributes:
                     value = attributes[attribute](value)
                 elif entry:
@@ -218,8 +218,8 @@ class HBNBCommand(cmd.Cmd):
                         value = entry(value)
                     except ValueError:
                         pass
-                setattr(storage.all()[key], attribute, value)
-                storage.all()[key].save()
+                setattr(FileStorage.all()[key], attribute, value)
+                FileStorage.all()[key].save()
 
 
 if __name__ == '__main__':
