@@ -110,7 +110,7 @@ class HBNBCommand(cmd.Cmd):
             element = record.split(" ")
             if element[0] not in storage.classes():
                 print("** class doesn't exist **")
-            elif len(words) < 2:
+            elif len(element) < 2:
                 print("** instance id missing **")
             else:
                 key = "{}.{}".format(element[0], element[1])
