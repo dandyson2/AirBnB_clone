@@ -33,23 +33,8 @@ class FileStorage:
             d = {k: v.to_dict() for k, v in FileStorage.__objects.items()}
             json.dump(d, f)
 
-    def reload(self):
-        """
-        Deserializes the JSON file to __objects
-        (only if the JSON file (__file_path) exists;
-        otherwise, do nothing. If the file doesn’t exist,
-        no exception should be raised
-        """
-        if not os.path.isfile(FileStorage.__file_path):
-            return ()
-        with open(FileStorage.__file_path, "r", encoding="utf-8") as f:
-            obj_dict = json.load(f)
-            obj_dict = {k: self.classes()[v["__class__"]](**v)
-                        for k, v in obj_dict.items()}
-            FileStorage.__objects = obj_dict
-
     def classes(self):
-        """This will return a dictionary of valid classes & each references"""
+        """Validation of each classes and their reference returns"""
         from models.base_model import BaseModel
         from models.user import User
         from models.state import State
@@ -66,6 +51,21 @@ class FileStorage:
                    "Place": Place,
                    "Review": Review}
         return (classes)
+
+    def reload(self):
+        """
+        Deserializes the JSON file to __objects
+        (only if the JSON file (__file_path) exists;
+        otherwise, do nothing. If the file doesn’t exist,
+        no exception should be raised
+        """
+        if not os.path.isfile(FileStorage.__file_path):
+            return ()
+        with open(FileStorage.__file_path, "r", encoding="utf-8") as f:
+            obj_dict = json.load(f)
+            obj_dict = {k: self.classes()[v["__class__"]](**v)
+                        for k, v in obj_dict.items()}
+            FileStorage.__objects = obj_dict
 
     def attributes(self):
         """This returns the valid attributes and their types for classname"""
