@@ -2,7 +2,9 @@
 
 """Defines the City class."""
 
+
 from models.base_model import BaseModel
+from models.engine.file_storage import FileStorage
 
 
 class City(BaseModel):

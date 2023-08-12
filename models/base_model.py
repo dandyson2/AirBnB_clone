@@ -4,8 +4,8 @@
 
 
 from uuid import uuid4
-from models import storage
 from datetime import datetime
+from models.engine.file_storage import FileStorage
 
 
 class BaseModel:
