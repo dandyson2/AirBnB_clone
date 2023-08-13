@@ -17,6 +17,8 @@ import unittest
 from time import sleep
 from models.user import User
 from datetime import datetime
+from models.base_model import BaseModel
+from models.engine.file_storage import FileStorage
 
 
 class TestUser_instantiation(unittest.TestCase):
