@@ -33,7 +33,7 @@ class BaseModel:
             self.id = str(uuid4())
             self.created_at = datetime.now()
             self.updated_at = datetime.now()
-            FileStorage.new(self, obj)
+            models.storage.new(self)
 
     def __str__(self):
         """Define the string and its return values of data type"""
@@ -44,7 +44,7 @@ class BaseModel:
         """Updates the public instance attribute
         updated_at with the current datetime"""
         self.updated_at = datetime.now()
-        FileStorage.save()
+        models.storage.save()
 
     def to_dict(self):
         """Returns a dictionary containing all
