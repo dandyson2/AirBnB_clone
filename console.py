@@ -20,17 +20,15 @@ from models.engine.file_storage import FileStorage
 class HBNBCommand(cmd.Cmd):
     """This is the Class for the command interpreter."""
     prompt = "(hbnb) "
-
-    def classes(self):
-        """Validation of each classes and their reference returns"""
-        classes = {"BaseModel": BaseModel,
-                   "User": User,
-                   "State": State,
-                   "City": City,
-                   "Amenity": Amenity,
-                   "Place": Place,
-                   "Review": Review}
-        return (classes)
+    classes = {
+            "BaseModel": BaseModel,
+            "User": User,
+            "State": State,
+            "City": City,
+            "Amenity": Amenity,
+            "Place": Place,
+            "Review": Review
+            }
 
     def default(self, record):
         """Catch commands if nothing else matches then."""
