@@ -2,7 +2,7 @@
 
 """Defines the BaseModel class."""
 
-
+import models
 from uuid import uuid4
 from datetime import datetime
 from models.engine.file_storage import FileStorage
@@ -37,8 +37,8 @@ class BaseModel:
 
     def __str__(self):
         """Define the string and its return values of data type"""
-        class_name = self.__class__.__name__
-        return ("[{}] ({}) {}".format(class_name, self.id, self.__dict__))
+        class_base = self.__class__.__name__
+        return ("[{}] ({}) {}".format(class_base, self.id, self.__dict__))
 
     def save(self):
         """Updates the public instance attribute
