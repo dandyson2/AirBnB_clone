@@ -121,7 +121,10 @@ class HBNBCommand(cmd.Cmd):
                     print(FileStorage.all(self)[key])
 
     def do_destroy(self, record):
-        """Deletes an instance based on the class name and id. then save it"""
+        """
+        Deletes an instance based on the class name and id.
+            then save it
+        """
         if record == "" or record is None:
             print("** class name missing **")
         else:
