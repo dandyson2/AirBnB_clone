@@ -30,10 +30,10 @@ class BaseModel:
                 else:
                     self.__dict__[key] = kwargs[key]
         else:
-            self.id = str(uuid.uuid4())
+            self.id = str(uuid4())
             self.created_at = datetime.now()
             self.updated_at = datetime.now()
-            FileStorage.new(self)
+            FileStorage.new(self, obj)
 
     def __str__(self):
         """Define the string and its return values of data type"""
