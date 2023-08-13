@@ -60,22 +60,23 @@ class TestHBNBCommand_help(unittest.TestCase):
 
     def test_help_show(self):
         h = ("Prints string representation of an instance base on:\n"
-                "        class name & id")
+             "        class name & id")
         with patch("sys.stdout", new=StringIO()) as output:
             self.assertFalse(HBNBCommand().onecmd("help show"))
             self.assertEqual(h, output.getvalue().strip())
 
     def test_help_destroy(self):
-        h = ("Deletes an instance based on the class name and id. then save it")
+        h = ("Deletes an instance based on the class name and id.\n     "
+             "       then save it")
         with patch("sys.stdout", new=StringIO()) as output:
             self.assertFalse(HBNBCommand().onecmd("help destroy"))
             self.assertEqual(h, output.getvalue().strip())
 
     def test_help_all(self):
         h = ("Prints all string representation of all instances.\n"
-                "        Base on:\n"
-                "        Class name or\n"
-                "        Not on class name.")
+             "        Base on:\n"
+             "        Class name or\n"
+             "        Not on class name.")
         with patch("sys.stdout", new=StringIO()) as output:
             self.assertFalse(HBNBCommand().onecmd("help all"))
             self.assertEqual(h, output.getvalue().strip())
@@ -88,10 +89,10 @@ class TestHBNBCommand_help(unittest.TestCase):
 
     def test_help_update(self):
         h = ("Updates an instance by adding or updating attribute.\n        "
-                "Base on:\n"
-                "        Class name,\n"
-                "        id &\n"
-                "        save changes to JSON File.")
+             "Base on:\n"
+             "        Class name,\n"
+             "        id &\n"
+             "        save changes to JSON File.")
         with patch("sys.stdout", new=StringIO()) as output:
             self.assertFalse(HBNBCommand().onecmd("help update"))
             self.assertEqual(h, output.getvalue().strip())
