@@ -8,7 +8,7 @@ import json
 import datetime
 
 
-class FileStorage:
+class FileStorage():
     """Represent an abstracted storage engine.
 
     Attributes:
