@@ -101,7 +101,7 @@ class HBNBCommand(cmd.Cmd):
         else:
             storage.classes()[record]()
             storage.save()
-            print(storage.id)
+            print(id)
 
     def do_show(self, record):
         """Prints string representation of an instance base on:
