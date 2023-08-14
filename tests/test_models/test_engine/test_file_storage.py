@@ -14,6 +14,7 @@ import os
 import json
 import models
 import unittest
+from models import storage
 from models.user import User
 from models.city import City
 from datetime import datetime

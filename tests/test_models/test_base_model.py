@@ -18,6 +18,7 @@ import json
 import models
 import unittest
 from time import sleep
+from models import storage
 from datetime import datetime
 from models.base_model import BaseModel
 

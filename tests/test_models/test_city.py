@@ -15,6 +15,7 @@ import os
 import models
 import unittest
 from time import sleep
+from models import storage
 from models.city import City
 from datetime import datetime
 
